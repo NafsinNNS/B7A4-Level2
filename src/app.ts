@@ -3,6 +3,12 @@ import config from "./config";
 import cors from "cors";
 import { prisma } from "./lib/prisma";
 import cookieParser from "cookie-parser";
+import { authRoutes } from "./models/auth/auth.route";
+import { propertyRoutes } from "./models/property/property.route";
+import { landlordRoutes } from "./models/landlord/landlord.route";
+import { globalErrorHandler } from "./middlewares/globalErrorHandler";
+import { categoryRoutes } from "./models/category/category.route";
+import { rentRequestRoutes } from "./models/rentRequest/rentRequest.route";
 
 const app: Application = express();
 
@@ -20,5 +26,13 @@ app.get("/", async (req: Request, res: Response) => {
     // console.log("Users:", user);
     res.send("Hello, World!");
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/properties", propertyRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/landlord", landlordRoutes);
+app.use("/api/rentals", rentRequestRoutes);
+
+app.use(globalErrorHandler);
 
 export default app;

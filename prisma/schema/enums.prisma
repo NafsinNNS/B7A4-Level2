@@ -1,0 +1,30 @@
+enum ActiveStatus {
+    ACTIVE
+    INACTIVE
+}
+
+enum Role {
+    TENANT
+    LANDLORD
+    ADMIN
+}
+
+enum PropertyCategory {
+    APARTMENT
+    HOUSE
+    STUDIO
+    DUPLEX
+    ROOM
+}
+
+enum ApproveStatus {
+    PENDING
+    APPROVED
+    REJECTED
+}
+
+enum PaymentStatus {
+    UNPAID
+    PAID
+    FAILED
+}

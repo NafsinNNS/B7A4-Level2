@@ -9,6 +9,7 @@ import { landlordRoutes } from "./models/landlord/landlord.route";
 import { globalErrorHandler } from "./middlewares/globalErrorHandler";
 import { categoryRoutes } from "./models/category/category.route";
 import { rentRequestRoutes } from "./models/rentRequest/rentRequest.route";
+import { adminRoute } from "./models/admin/admin.route";
 
 const app: Application = express();
 
@@ -32,6 +33,7 @@ app.use("/api/properties", propertyRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/landlord", landlordRoutes);
 app.use("/api/rentals", rentRequestRoutes);
+app.use("/api/admin", adminRoute);
 
 app.use(globalErrorHandler);
 

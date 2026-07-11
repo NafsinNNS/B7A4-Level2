@@ -58,8 +58,45 @@ const deleteProperty = catchAsync(async (req: Request, res: Response, next: Next
     });
 })
 
+const getAllRequests = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+    const result = await landlordService.getAllRequests(userId as string);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Requests fetched successfully",
+        data: result,
+    });
+})
+
+const updateRequestStatus = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+    const requestId = req.params.id;
+    const status = req.body.status;
+
+    if (!requestId) {
+        return next(new Error("Request ID is required"));
+    }
+
+    if (!status) {
+        return next(new Error("Status is required"));
+    }
+
+    const result = await landlordService.updateRequestStatus(userId as string, requestId as string, status);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Request status updated successfully",
+        data: result,
+    });
+})
+
 export const landlordController = {
     createProperty,
     updateProperty,
     deleteProperty,
+    getAllRequests,
+    updateRequestStatus,
 };

@@ -89,14 +89,22 @@ const updateRequestStatus = async (userId: string, requestId: string, status: st
         throw new Error("You are not authorized to update this request");
     }
 
-    const result = await prisma.rentalRequest.update({
-        where: {
-            id: requestId,
-        },
-        data: {
-            approveStatus: status as ApproveStatus,
-        },
+    const result = await prisma.$transaction(async (tx) => {
+        const updatedRequest = await tx.rentalRequest.update({
+            where: { id: requestId },
+            data: { approveStatus: status as ApproveStatus },
+        });
+
+        if (status === "APPROVED") {
+            await tx.property.update({
+                where: { id: request.propertyId },
+                data: { isAvailable: false },
+            });
+        }
+
+        return updatedRequest;
     });
+
     return result;
 }
 

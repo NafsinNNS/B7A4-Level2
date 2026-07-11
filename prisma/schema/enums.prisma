@@ -21,6 +21,7 @@ enum ApproveStatus {
     PENDING
     APPROVED
     REJECTED
+    COMPLETED
 }
 
 enum PaymentStatus {

@@ -1,38 +1,38 @@
 enum ActiveStatus {
-    ACTIVE
-    INACTIVE
+  ACTIVE
+  INACTIVE
 }
 
 enum Role {
-    TENANT
-    LANDLORD
-    ADMIN
+  TENANT
+  LANDLORD
+  ADMIN
 }
 
 enum PropertyCategory {
-    APARTMENT
-    HOUSE
-    STUDIO
-    DUPLEX
-    ROOM
+  APARTMENT
+  HOUSE
+  STUDIO
+  DUPLEX
+  ROOM
 }
 
 enum ApproveStatus {
-    PENDING
-    APPROVED
-    REJECTED
-    COMPLETED
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
 }
 
 enum PaymentStatus {
-    UNPAID
-    PAID
-    FAILED
+  UNPAID
+  PAID
+  FAILED
 }
 
 enum SubscriptionStatus {
-    ACTIVE
-    INACTIVE
-    CANCELLED
-    EXPIRED
+  ACTIVE
+  INACTIVE
+  CANCELLED
+  EXPIRED
 }

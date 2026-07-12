@@ -1,14 +1,14 @@
 model RentalRequest {
-    id            String        @id @default(uuid())
-    userId        String
-    propertyId    String
-    approveStatus ApproveStatus @default(PENDING)
-    paymentStatus PaymentStatus @default(UNPAID)
-    createdAt     DateTime      @default(now())
-    updatedAt     DateTime      @updatedAt
+  id            String        @id @default(uuid())
+  userId        String
+  propertyId    String
+  approveStatus ApproveStatus @default(PENDING)
+  paymentStatus PaymentStatus @default(UNPAID)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 
-    user     User     @relation(fields: [userId], references: [id])
-    property Property @relation(fields: [propertyId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
 
-    payments Payment[]
+  payment Payment?
 }

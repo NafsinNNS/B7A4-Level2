@@ -1,18 +1,18 @@
 model Payment {
-    id               String             @id @default(uuid())
-    amount           Float
-    status           SubscriptionStatus
-    createdAt        DateTime           @default(now())
-    updatedAt        DateTime           @updatedAt
-    stripeCustomerId String             @unique
-    stripePaymentId  String             @unique
-    currentPeriodEnd DateTime
+  id               String             @id @default(uuid())
+  amount           Float
+  status           SubscriptionStatus
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  stripeCustomerId String             @unique
+  stripePaymentId  String             @unique
+  currentPeriodEnd DateTime
 
-    userId String @unique
-    user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
 
-    rentalRequestId String        @unique
-    rentalRequest   RentalRequest @relation(fields: [rentalRequestId], references: [id])
+  rentalRequestId String        @unique
+  rentalRequest   RentalRequest @relation(fields: [rentalRequestId], references: [id])
 
-    @@map("payments")
+  @@map("payments")
 }

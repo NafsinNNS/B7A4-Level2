@@ -9,4 +9,6 @@ model RentalRequest {
 
     user     User     @relation(fields: [userId], references: [id])
     property Property @relation(fields: [propertyId], references: [id])
+
+    payments Payment[]
 }

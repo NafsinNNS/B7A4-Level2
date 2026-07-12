@@ -19,6 +19,8 @@ app.use(cors({
     origin: config.app_url,
     credentials: true,
 }));
+const endpointSecret = config.stripe_webhook_secret;
+app.use("/api/payment/webhook" , express.raw({ type: 'application/json' }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

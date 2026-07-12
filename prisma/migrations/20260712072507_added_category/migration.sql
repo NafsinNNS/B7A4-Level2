@@ -21,8 +21,5 @@ CREATE TABLE "categories" (
 -- CreateIndex
 CREATE UNIQUE INDEX "categories_name_key" ON "categories"("name");
 
--- Seed default category
-INSERT INTO "categories" ("id", "name", "createdAt", "updatedAt") VALUES ('00000000-0000-0000-0000-000000000001', 'NO CATEGORY', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
-
 -- AddForeignKey
 ALTER TABLE "properties" ADD CONSTRAINT "properties_categoryName_fkey" FOREIGN KEY ("categoryName") REFERENCES "categories"("name") ON DELETE RESTRICT ON UPDATE CASCADE;

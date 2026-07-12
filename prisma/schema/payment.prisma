@@ -1,10 +1,11 @@
 model Payment {
-    id            String             @id @default(uuid())
-    amount        Float
-    transactionId String             @unique
-    status        SubscriptionStatus
-    createdAt     DateTime           @default(now())
-    updatedAt     DateTime           @updatedAt
+    id               String             @id @default(uuid())
+    amount           Float
+    transactionId    String             @unique
+    status           SubscriptionStatus
+    createdAt        DateTime           @default(now())
+    updatedAt        DateTime           @updatedAt
+    stripeCustomerId String
 
     userId String
     user   User   @relation(fields: [userId], references: [id])

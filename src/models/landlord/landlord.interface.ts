@@ -3,7 +3,7 @@ export interface ICreatePropertyPayload {
     description: string;
     price: number;
     location: string;
-    categoryId: "APARTMENT" | "HOUSE" | "STUDIO" | "DUPLEX" | "ROOM";
+    categoryName?: string;
     amenities?: string[];
 }
 
@@ -12,6 +12,6 @@ export interface IUpdatePropertyPayload {
     description?: string;
     price?: number;
     location?: string;
-    categoryId?: "APARTMENT" | "HOUSE" | "STUDIO" | "DUPLEX" | "ROOM";
+    categoryName?: string;
     amenities?: string[];
 }

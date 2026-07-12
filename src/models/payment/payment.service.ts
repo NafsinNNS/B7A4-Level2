@@ -124,8 +124,25 @@ const getPaymentsByUserId = async (userId: string) => {
     return payments;
 }
 
+const getPaymentDetails = async (userId: string, paymentId: string) => {
+    const payment = await prisma.payment.findUnique({
+        where: {
+            id: paymentId,
+            userId,
+        },
+        include: {
+            rentalRequest: true,
+        }
+    });
+    if (payment?.userId !== userId) {
+        throw new Error("You are not authorized to view this payment.");
+    }
+    return payment;
+}
+
 export const paymentService = {
     createPayment,
     handleWebhook,
-    getPaymentsByUserId
+    getPaymentsByUserId,
+    getPaymentDetails
 };

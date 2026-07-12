@@ -7,7 +7,7 @@ const router = Router();
 
 router.post("/create/:id", auth(Role.ADMIN, Role.TENANT, Role.LANDLORD), paymentController.createPayment);
 router.post("/confirm", paymentController.handleWebhook);
-// router.get("/payments",)
+router.get("/", auth(Role.TENANT), paymentController.getPaymentsByUserId);
 // router.get("/payments/:id",)
 
 export const paymentRoutes = router;

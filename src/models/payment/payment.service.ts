@@ -29,6 +29,17 @@ const createPayment = async (userId: string, rentalRequestId: string) => {
 
         const price = rentalRequest?.property?.price;
 
+        const isApproved = await tx.rentalRequest.findFirst({
+            where: {
+                id: rentalRequestId,
+                approveStatus: "APPROVED",
+            }
+        });
+
+        if (!isApproved) {
+            throw new Error("Rental request is not approved yet.");
+        }
+
         let StripeCustomerId = user?.payments.find(payment => payment.rentalRequestId === rentalRequestId)?.stripeCustomerId;
 
         if (!StripeCustomerId) {
@@ -101,7 +112,20 @@ const handleWebhook = async (payload: Buffer, signature: string) => {
     }
 }
 
+const getPaymentsByUserId = async (userId: string) => {
+    const payments = await prisma.payment.findMany({
+        where: {
+            userId,
+        },
+        include: {
+            rentalRequest: true,
+        }
+    });
+    return payments;
+}
+
 export const paymentService = {
     createPayment,
     handleWebhook,
+    getPaymentsByUserId
 };

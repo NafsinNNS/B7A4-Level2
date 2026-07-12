@@ -32,7 +32,21 @@ const handleWebhook = catchAsync(async (req: Request, res: Response, next: NextF
     })
 })
 
+const getPaymentsByUserId = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?.id;
+
+    const result = await paymentService.getPaymentsByUserId(userId as string);
+
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Payments retrieved successfully",
+        data: result,
+    });
+})
+
 export const paymentController = {
     createPayment,
     handleWebhook,
+    getPaymentsByUserId
 };

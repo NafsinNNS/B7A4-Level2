@@ -1,6 +1,7 @@
 import config from "../../config";
 import { stripe } from "../../config/stripe";
 import { prisma } from "../../lib/prisma";
+import { handleChangeSubscription, handleCheckoutCompleted } from "./payent.utils";
 
 const createPayment = async (userId: string, rentalRequestId: string) => {
     const transactionResult = await prisma.$transaction(async (tx) => {
@@ -72,8 +73,32 @@ const createPayment = async (userId: string, rentalRequestId: string) => {
     }
 }
 
-const handleWebhook = async (event: any) => {
+const handleWebhook = async (payload: Buffer, signature: string) => {
+    console.log("Webhook received, verifying signature...");
+    const event = stripe.webhooks.constructEvent(
+        payload,
+        signature,
+        config.stripe_webhook_secret
+    );
 
+    switch (event.type) {
+        case 'checkout.session.completed':
+            console.log("Checkout session completed, handling...");
+            await handleCheckoutCompleted(event.data.object);
+            break;
+
+        case 'customer.subscription.updated':
+            await handleChangeSubscription(event.data.object);
+            // for update - stripe trigger customer.subscription.updated
+            break;
+        case 'customer.subscription.deleted':
+            await handleChangeSubscription(event.data.object);
+            // to delete just run stripe subscriptions cancel your_sub_id
+            break;
+        default:
+            console.log(`No event matched. Unhandled event type ${event.type}`);
+            break;
+    }
 }
 
 export const paymentService = {

@@ -1,7 +1,8 @@
-import { PropertyCategory } from "../../../generated/prisma/enums";
+import { prisma } from "../../lib/prisma";
 
 const getPropertyCategories = async () => {
-    return Object.values(PropertyCategory);
+    const categories = await prisma.category.findMany();
+    return categories;
 }
 
 export const categoryService = {

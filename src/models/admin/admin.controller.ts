@@ -64,9 +64,27 @@ const getAllRentalRequests = catchAsync(async (req: Request, res: Response, next
     });
 })
 
+const createCategory = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const name = req.body.name;
+
+    if (!name) {
+        return next(new Error("Category name is required"));
+    }
+
+    const result = await adminService.createCategory(name);
+
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "Category created successfully",
+        data: result,
+    });
+})
+
 export const adminController = {
     getAllUsers,
     updateUserStatus,
     getAllProperties,
     getAllRentalRequests,
+    createCategory
 }

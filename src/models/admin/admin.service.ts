@@ -50,9 +50,26 @@ const getAllRentalRequests = async () => {
     return rentalRequests;
 }
 
+const createCategory = async (name: string) => {
+    const existingCategory = await prisma.category.findUnique({
+        where: { name },
+    });
+
+    if (existingCategory) {
+        throw new Error("Category already exists");
+    }
+
+    const newCategory = await prisma.category.create({
+        data: { name },
+    });
+
+    return newCategory;
+}
+
 export const adminService = {
     getAllUsers,
     updateUserStatus,
     getAllProperties,
     getAllRentalRequests,
+    createCategory
 }

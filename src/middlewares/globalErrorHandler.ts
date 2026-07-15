@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Prisma } from "../../generated/prisma/client";
-import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+const { JsonWebTokenError, TokenExpiredError } = jwt;
 import Stripe from "stripe";
 
 export const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {

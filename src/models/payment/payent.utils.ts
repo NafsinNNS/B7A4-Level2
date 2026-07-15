@@ -64,7 +64,7 @@ export const handleChangeSubscription = async (payload: Stripe.Subscription) => 
 
     const currentPeriodEnd = getPeriodEnd(payload);
 
-    const isSubscriptionExists = prisma.payment.findUnique({
+    const isSubscriptionExists = await prisma.payment.findUnique({
         where: {
             stripePaymentId: stripePaymentId
         }
